@@ -1,0 +1,52 @@
+kafka-server-start.bat C:\kafka-m1\kafka_2.12-2.4.0\config\server.properties
+
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 7 --topic kbr-meu.topico
+
+
+
+
+kafka-console-consumer.bat --zookeeper localhost:2181 --topic [Topic Name] --from-beginning
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic [Topic Name] --from-beginn
+
+kafka-run-class.bat kafka.admin.TopicCommand --delete --topic [topic_to_delete] --zookeeper localhost:2181
+
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic test
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test
+
+
+kafka-topics.sh --create --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --replication-factor 3 --partitions 7 --topic SA-meu.topico
+
+kafka-topics.bat --describe --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-meu.topico
+
+kafka-topics.bat --create --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --replication-factor 3 --partitions 7 --topic SA-lote300kb --config max.message.bytes=307200
+
+
+kafka-producer-perf-test.bat --topic SA-lote300kb --num-records 5 --record-size 51200 --throughput -1 --producer-props acks=1 bootstrap.servers=b0.kafka.ml:9092,b1.kafka.ml:9092 batch.size=307200
+
+
+kafka-topics.bat --create --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --replication-factor 3 --partitions 1 --topic SA-topico2min --config cleanup.policy=delete --config retention.ms=120000 --config segment.ms=3000
+
+kafka-console-producer.bat --broker-list b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-topico2min
+
+kafka-console-consumer.bat --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-topico2min --property print.key=true --property print.timestamp=true --from-beginning
+
+
+kafka-console-producer.bat --broker-list b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-compactar.s --property "parse.key=true" --property "key.separator=:" < registros.txt
+
+kafka-topics.bat --create --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --replication-factor 3 --partitions 1 --topic SA-alterar-cfg
+
+kafka-console-producer.bat --broker-list b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-alterar-cfg
+
+kafka-console-consumer.bat --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-alterar-cfg --property print.key=true --property print.timestamp=true --from-beginning
+
+kafka-topics.bat --alter --zookeeper z0.kafka.ml:2181 --topic SA-alterar-cfg --config cleanup.policy=compact --config segment.ms=10000
+
+kafka-topics.bat --describe --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --topic SA-alterar-cfg
+
+
+kafka-topics.bat --create --bootstrap-server b0.kafka.ml:9092,b1.kafka.ml:9092 --replication-factor 3 --partitions 4 --topic SA-distribuir
+
+kafka-producer-perf-test.bat --topic SA-distribuir --num-records 5 --record-size 100 --throughput -1 --print-metrics --producer-props acks=1 bootstrap.servers=b0.kafka.ml:9092,b1.kafka.ml:9092

@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.apache.kafka:kafka-clients:2.4.1'
+
+    implementation 'io.quarkus:quarkus-kafka-client:1.5.2.Final'
+    implementation 'io.quarkus.arc:arc:1.5.2.Final'
+    implementation 'io.quarkus:quarkus-resteasy-jsonb:1.5.2.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+}
+
+application {
+    mainClassName = 'com.kafkabr.App'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+[run].each { runTask ->
+    configure(runTask) {
+        systemProperties System.properties
+    }
+}

@@ -1,0 +1,40 @@
+{
+  "type": "record",
+  "namespace": "com.kafkabr",
+  "name": "OrdemCompraFaturada",
+  "version" : "1.0",
+  "doc": "Ordem de compra que já foi faturada",
+  "fields": [
+    {
+      "name": "ordem_compra_id",
+      "doc": "Identificador único da ordem de compra",
+      "type": "string"
+    },
+    {
+      "name": "cliente_id",
+      "doc": "Identificador único do cliente que criou a ordem de compra",
+      "type": "string"
+    },
+    {
+      "name": "faturamento_id",
+      "doc": "Identificador único do faturamento da ordem de compra",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "doc": "Data da compra no formato epoch",
+      "type": "long"
+    },
+    {
+      "name":"valor",
+      "doc":"Valor faturado para esta ordem de compra",
+      "type":"double"
+    },
+    {
+      "name":"estagio",
+      "doc": "Estágio padrão do da ordem de compra",
+      "type": ["null", "string"],
+      "default": null
+    }
+  ]
+}

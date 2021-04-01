@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "namespace": "com.kafkabr",
+  "name": "OrdemCompraFaturada",
+  "doc": "Ordem de compra que já foi faturada",
+  "fields": [
+    {
+      "name": "id",
+      "doc": " Identificador único da ordem de compra",
+      "type": "string"
+    },
+    {
+      "name": "cliente_id",
+      "doc": " Identificador único do cliente que criou a ordem de compra",
+      "type": "string"
+    },
+    {
+      "name": "valor",
+      "doc": "Valor faturado para esta ordem de compra",
+      "type": "double"
+    }
+  ]
+}
